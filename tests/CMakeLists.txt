@@ -11,7 +11,8 @@ add_subdirectory(extern/googletest)
 
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
-add_executable(unit_tests tests.cpp)
-
-target_include_directories(tic_tac_toe PRIVATE ./src/player ./src/ttt_board/)
+add_executable(unit_tests tests.cpp )
+target_include_directories(unit_tests PRIVATE ${TTT_LIBS}/player)
+target_include_directories(unit_tests PRIVATE ${TTT_LIBS}/ttt_board)
 target_link_libraries(unit_tests PRIVATE gtest gtest_main)
+target_link_libraries(unit_tests PRIVATE ${COMMON_LIBS})

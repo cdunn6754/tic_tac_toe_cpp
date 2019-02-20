@@ -16,6 +16,7 @@ public:
   };
   
   board_array get_state();
+  void make_move(player p, int location);
   
   
 private:

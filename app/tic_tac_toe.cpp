@@ -1,14 +1,16 @@
 #include <iostream>
 
 #include "ttt_board.h"
+#include "player.h"
 
 
 int main() {
-  std::cout<< "hiya" << std::endl;
+  player p1 = player::E;
+  std::cout<< player_as_number(p1) << std::endl;
   
   ttt_board board;
   
-  std::cout<< board.get_state()[1] << std::endl;
+  //std::cout<< board.get_state()[1] << std::endl;
   
   return 0;
 }

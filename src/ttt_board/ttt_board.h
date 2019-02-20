@@ -3,16 +3,20 @@
 
 #include <array>
 
-typedef std::array<char,9> board_array;
+#include "player.h"
+
+typedef std::array<player, 9> board_array;
 
 class ttt_board {
   board_array state;
   
 public:
-  ttt_board() : state({{'0','1','2','3','4','5','6','7','8'}}) {};
+  ttt_board() : state{board_array()} {};
   
   board_array get_state();
-  void print_something();
+  
+  
+private:
   void set_state(board_array new_state);
   
 };

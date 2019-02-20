@@ -8,7 +8,7 @@ int main() {
   
   ttt_board board;
   
-  //std::cout<< board.get_state()[1] << std::endl;
+  std::cout<< board.get_state()[1] << std::endl;
   
   return 0;
 }

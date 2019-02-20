@@ -12,7 +12,9 @@ public:
   ttt_board() : state({{'0','1','2','3','4','5','6','7','8'}}) {};
   
   board_array get_state();
+  void print_something();
   void set_state(board_array new_state);
+  
 };
 
 

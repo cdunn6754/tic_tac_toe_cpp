@@ -11,7 +11,9 @@ class ttt_board {
   board_array state;
   
 public:
-  ttt_board() : state{board_array()} {};
+  ttt_board() : state{board_array()} {
+    state.fill(player::E);
+  };
   
   board_array get_state();
   

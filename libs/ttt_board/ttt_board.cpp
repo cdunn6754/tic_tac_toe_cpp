@@ -18,20 +18,48 @@ void ttt_board::make_move(player p, int location){
 }
 
 bool ttt_board::check_finished() {
-  for (auto itr = state.begin(); itr != state.end(), itr++){
-    if (*itr) == player::E {
+  for (auto itr = state.begin(); itr != state.end(); itr++){
+    if (*itr == player::E) {
       return false;
     }
-    return true;
   }
+    return true;
 }
 
 char ttt_board::check_winner() {
-  if (!check_finished()){
-    return false
+  
+  // Rows
+  for (int i=0; i<3; i++){
+    if (state[i*3] == state[i*3 + 1] &&
+        state[i*3 + 1] == state[i*3 + 2] &&
+        state[i*3 + 2] != player::E)
+    {
+      return player_print(state[i*3]);
+    }
+
+    // Columns
+    if (state[i] == state[i+3] &&
+        state[i+3] == state[i+6] &&
+        state[i+6] != player::E) {
+      return player_print(state[i]);
+    }
   }
   
+  // Diagonal
+  if (state[0] == state[4] &&
+    state[4] == state[8] &&
+    state[8] != player::E) {
+      
+    return player_print(state[0]);
+  }
+  if (state[2] == state[4] &&
+    state[4] == state[6] &&
+    state[6] != player::E) {
+      
+    return player_print(state[2]);
+  }
   
+  return check_finished() ? 'D' : 'N';
 }
 
 

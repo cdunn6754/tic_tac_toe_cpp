@@ -32,6 +32,61 @@ TEST (BoardTest2, make_move) {
   }
 }
 
+TEST (BoardFinished, finished){
+  ttt_board test_board;
+  // should be false at this point
+  EXPECT_EQ(test_board.check_finished(), false);
+  test_board.make_move(player::O, 0);
+  test_board.make_move(player::O, 1);
+  test_board.make_move(player::O, 2);
+  EXPECT_EQ(test_board.check_finished(), false);
+  test_board.make_move(player::O, 3);
+  test_board.make_move(player::O, 4);
+  test_board.make_move(player::O, 5);
+  EXPECT_EQ(test_board.check_finished(), false);
+  test_board.make_move(player::O, 6);
+  test_board.make_move(player::O, 7);
+  test_board.make_move(player::O, 8);
+  EXPECT_EQ(test_board.check_finished(), true);
+}
+
+TEST (BoardWinner, row_winner){
+  ttt_board test_board;
+  // should be false at this point
+  EXPECT_EQ(test_board.check_winner(), 'N');
+  test_board.make_move(player::O, 0);
+  test_board.make_move(player::O, 1);
+  test_board.make_move(player::O, 2);
+  EXPECT_EQ(test_board.check_winner(), 'O');
+}
+
+TEST (BoardWinner, col_winner){
+  ttt_board test_board;
+  
+  test_board.make_move(player::X, 1);
+  test_board.make_move(player::X, 4);
+  test_board.make_move(player::X, 7);
+  EXPECT_EQ(test_board.check_winner(), 'X');
+}
+
+TEST (BoardWinner, diag_winner){
+  ttt_board test_board;
+  
+  test_board.make_move(player::X, 0);
+  test_board.make_move(player::X, 4);
+  test_board.make_move(player::X, 8);
+  EXPECT_EQ(test_board.check_winner(), 'X');
+}
+
+TEST (BoardWinner, a_diag_winner){
+  ttt_board test_board;
+  
+  test_board.make_move(player::O, 2);
+  test_board.make_move(player::O, 4);
+  test_board.make_move(player::O, 6);
+  EXPECT_EQ(test_board.check_winner(), 'O');
+}
+
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);

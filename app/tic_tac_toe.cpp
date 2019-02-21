@@ -10,7 +10,10 @@ int main() {
   
   ttt_board board;
   
-  std::cout<< player_print(board.get_state()[1]) << std::endl;
+  board.make_move(player::X, 2);
+  board.print_board();
+  
+  //std::cout<< player_print(board.print_board()) << std::endl;
   
   return 0;
 }

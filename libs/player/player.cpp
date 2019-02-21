@@ -5,6 +5,8 @@ int player_as_number(player const val) {
   return static_cast<typename std::underlying_type<player>::type>(val);
 }
 
+// Return the string that matches the enum
+// in the case of an empty player, 'E', dont print anything
 char player_print(player const val) {
   switch (val){
     case player::X:
@@ -12,7 +14,7 @@ char player_print(player const val) {
     case player::O:
       return 'O';
     case player::E:
-      return 'E';            
+      return ' ';
   }
   
 }

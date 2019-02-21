@@ -13,7 +13,8 @@ TEST (BoardTest1, initialization) {
   }
 }
 
-TEST (BoardTest2, make_move) {
+TEST (BoardMove, make_move) {
+  // A player can make a move but can not
   ttt_board test_board;
   test_board.make_move(player::O, 3);
   board_array state(test_board.get_state());
@@ -30,6 +31,14 @@ TEST (BoardTest2, make_move) {
       EXPECT_NE (p, player::O);
     }
   }
+}
+
+TEST (BoardMove, overwite_move){
+  // A player can't overwrite a previous move
+  ttt_board test_board;
+  test_board.make_move(player::O, 3);
+  test_board.make_move(player::X, 3);
+  EXPECT_EQ (test_board.get_state()[3], player::O);
 }
 
 TEST (BoardFinished, finished){

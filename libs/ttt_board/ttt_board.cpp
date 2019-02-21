@@ -7,13 +7,19 @@ board_array ttt_board::get_state(){
     return state;
   }
   
-void ttt_board::make_move(player p, int location){
+void ttt_board::reset_board(){
+  state.fill(player::E);
+}
+
+bool ttt_board::make_move(player p, int location){
   player location_state = state[location];
   if (location_state == player::E) {
       state[location] = p;
+      return true;
   }
   else {
     print_input_error();
+    return false;
   }
 }
 

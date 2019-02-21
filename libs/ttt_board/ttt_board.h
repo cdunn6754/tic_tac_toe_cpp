@@ -24,7 +24,8 @@ public:
   // Return const reference to underlying state array.
   board_array get_state();
   // Let player p make a move in board space location (0-8)
-  void make_move(player p, int location);
+  // if the move is invalid returns false
+  bool make_move(player p, int location);
   // See if all of the spaces are taken.
   // Could also just count moves.
   bool check_finished();
@@ -34,6 +35,8 @@ public:
   // board should have a state with only one winner so this needs to be called
   // after every move.
   char check_winner();
+  // Reset the board to it's original state
+  void reset_board();
   
   // Print a particular board row, either 0,1 or 2.
   void print_row(int row_num);

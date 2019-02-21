@@ -6,9 +6,9 @@ add_subdirectory(libs)
 
 set(COMMON_LIBS ttt_board ttt_player)
 
-add_executable(tic_tac_toe app/tic_tac_toe.cpp )
-target_link_libraries(tic_tac_toe PRIVATE ${COMMON_LIBS})
-target_compile_features(tic_tac_toe PRIVATE cxx_std_11 )
-target_include_directories(tic_tac_toe PRIVATE ${TTT_LIBS}/player ${TTT_LIBS}/ttt_board)
+add_executable(tic_tac_toe.exe app/tic_tac_toe.cpp )
+target_link_libraries(tic_tac_toe.exe PRIVATE ${COMMON_LIBS})
+target_compile_features(tic_tac_toe.exe PRIVATE cxx_std_11 )
+target_include_directories(tic_tac_toe.exe PRIVATE ${TTT_LIBS}/player ${TTT_LIBS}/ttt_board)
 
 add_subdirectory(tests)

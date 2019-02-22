@@ -3,9 +3,34 @@
 
 
 // PUBLIC
-board_array ttt_board::get_state(){
-    return state;
+ttt_board::ttt_board() :
+  state{board_array()},
+  row_decoration{"|-----|-----|-----|"} {
+  state.fill(player::E);
+};
+    
+ttt_board::ttt_board(const std::array<char, 9>& i_state) :
+  state{board_array()} {
+  // convert to enum types
+  for (std::size_t i = 0; i < state.size(); i++) {
+    switch (i_state[i]) {
+      case 'E':
+        state[i] = player::E;
+        break;
+      case 'X':
+        state[i] = player::X;
+        break;
+      case 'O':
+        state[i] = player::O;
+        break;        
+      default:
+        throw std::runtime_error("The board should only contain 'X', 'O', or 'E' entries.");
+    }
   }
+}
+board_array ttt_board::get_state(){
+  return state;
+}
   
 void ttt_board::reset_board(){
   state.fill(player::E);

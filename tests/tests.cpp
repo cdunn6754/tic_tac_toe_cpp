@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+#include <array>
 
 #include "ttt_board.h"
 #include "player.h"
@@ -11,6 +12,22 @@ TEST (BoardTest1, initialization) {
       EXPECT_NE (p, player::X);
       EXPECT_NE (p, player::O);
   }
+}
+
+// Can construct with an array of chars
+TEST (BoardTest1, native_initialization) {
+  std::array<char, 9> i_state{'E', 'E', 'E', 'X', 'E', 'O', 'E', 'E', 'X'};
+  ttt_board test_board(i_state);
+  board_array state(test_board.get_state());
+  EXPECT_EQ (player::E, state[0]);
+  EXPECT_EQ (player::E, state[1]);
+  EXPECT_EQ (player::E, state[2]);
+  EXPECT_EQ (player::X, state[3]);
+  EXPECT_EQ (player::E, state[4]);
+  EXPECT_EQ (player::O, state[5]);
+  EXPECT_EQ (player::E, state[6]);
+  EXPECT_EQ (player::E, state[7]);
+  EXPECT_EQ (player::X, state[8]);
 }
 
 TEST (BoardMove, make_move) {

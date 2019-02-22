@@ -14,12 +14,12 @@ class ttt_board {
   std::string row_decoration;
   
 public:
-  ttt_board() :
-  state{board_array()},
-  row_decoration{"|-----|-----|-----|"}
-  {
-    state.fill(player::E);
-  };
+  // Constructor default
+  ttt_board();
+  
+  // Construct from std::array<char, 9> where the chars are
+  // either 'X', 'O', or 'E'.
+  ttt_board(const std::array<char, 9>& i_state);
   
   // Return const reference to underlying state array.
   board_array get_state();

@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(tic_tac_toe LANGUAGES CXX)
-set(TTT_LIBS ${CMAKE_SOURCE_DIR}/libs)
 
-add_subdirectory(libs)
+set(TTT_LIBS ${CMAKE_SOURCE_DIR}/src)
+
+add_subdirectory(src)
 
 set(COMMON_LIBS ttt_board ttt_player)
 

@@ -1,5 +1,7 @@
-  #include "ttt_board.h"
-  
+#include <stdexcept>
+
+#include "ttt_board.h"
+
 
 
 // PUBLIC
@@ -22,7 +24,7 @@ ttt_board::ttt_board(const std::array<char, 9>& i_state) :
         break;
       case 'O':
         state[i] = player::O;
-        break;        
+        break;
       default:
         throw std::runtime_error("The board should only contain 'X', 'O', or 'E' entries.");
     }
@@ -92,6 +94,16 @@ char ttt_board::check_winner() {
   
   return check_finished() ? 'D' : 'N';
 }
+
+ std::vector<unsigned int> ttt_board::empty_indices() {
+    std::vector<unsigned int> e_idxs;
+    for (std::size_t i = 0; i < state.size(); i++) {
+      if (state[i] == player::E) {
+        e_idxs.push_back(i);
+      }
+    }
+    return e_idxs;
+  }
 
 
 void ttt_board::print_input_error() {

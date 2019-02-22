@@ -113,6 +113,19 @@ TEST (BoardWinner, a_diag_winner){
   EXPECT_EQ(test_board.check_winner(), 'O');
 }
 
+TEST (BoardUtils, empty_indices) {
+  ttt_board test_board;
+  test_board.make_move(player::O, 2);
+  test_board.make_move(player::O, 4);
+  test_board.make_move(player::O, 6);
+  test_board.make_move(player::O, 1);
+  test_board.make_move(player::O, 3);
+  test_board.make_move(player::O, 5);
+  
+  std::vector<unsigned int> expectation{0, 7, 8};
+  
+  EXPECT_EQ (test_board.empty_indices(), expectation);
+}
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);

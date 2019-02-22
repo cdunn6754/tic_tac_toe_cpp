@@ -2,6 +2,7 @@
 #define TTT_BOARD
 
 #include <array>
+#include <vector>
 #include <iostream>
 #include <iomanip>
 
@@ -37,6 +38,9 @@ public:
   char check_winner();
   // Reset the board to it's original state
   void reset_board();
+  // Find and return the indices that have yet to be played
+ std::vector<unsigned int> empty_indices();
+  
   
   // Print a particular board row, either 0,1 or 2.
   void print_row(int row_num);

@@ -40,6 +40,9 @@ public:
   
   // Print a particular board row, either 0,1 or 2.
   void print_row(int row_num);
+  // Print the board with the currenst X and O moves
+  // print the index of the board location in a spot
+  // if no moves have been made there yet
   void print_board();
   void print_input_error();
   

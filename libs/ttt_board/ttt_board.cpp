@@ -77,13 +77,20 @@ void ttt_board::print_input_error() {
 
 void ttt_board::print_row(int row_num) {
   auto itr = state.begin() + 3*row_num;
+  int idx = 3*row_num;
+  
+  auto print_idx_or_player = [&idx, this]() -> char {
+    return (state[idx] == player::E)
+      ? '0' + idx++
+      : player_print(state[idx++]);
+  };
   
   std::cout << "|" << std::setw(3)
-    << player_print(*itr)
+    << print_idx_or_player()
     << std::setw(3) << "|" << std::setw(3)
-    << player_print(*(++itr))
+    << print_idx_or_player()
     << std::setw(3) << "|" << std::setw(3)
-    << player_print(*(++itr))
+    << print_idx_or_player()
     << std::setw(3) << "|"
     << std::endl;
 }

@@ -19,4 +19,7 @@ char player_to_char(const player p);
 // Given 'X' or 'O' player return the other one
 player switch_player(const player p);
 
+// Switch in place
+void switch_player_inplace(player& p);
+
 #endif

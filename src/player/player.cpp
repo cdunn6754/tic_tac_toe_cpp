@@ -62,3 +62,15 @@ player switch_player(const player p) {
     throw std::runtime_error("Can only switch if player is 'X' or 'O'");
   }
 }
+
+void switch_player_inplace(player& p) {
+  if (p == player::O) {
+    p = player::X;
+  }
+  else if (p == player::X) {
+    p =  player::O;
+  }
+  else {
+    throw std::runtime_error("Can only switch if player is 'X' or 'O'");
+  }
+}

@@ -12,8 +12,9 @@ typedef std::pair<ttt_board, int> board_point;
 
 
 // Acutal minimax recursive function, given a board and an agent
-// returns the next best state
-char_board_array minimax(ttt_board, char);
+// returns a std::pair<ttt_board, int> with the next best state
+// and the score , either 10, -10 or 0
+board_point minimax(ttt_board board, player agent, bool agents_turn=true);
 
 // Find and return the first index where there is difference
 // returns -1 for equal arrays

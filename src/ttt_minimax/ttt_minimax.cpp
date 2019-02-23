@@ -2,7 +2,7 @@
 #include <array>
 #include <utility>
 
-board_point  minimax(ttt_board board, const player agent, bool agents_turn=true) {
+board_point minimax(ttt_board board, const player agent, bool agents_turn) {
   // check for terminal state
   char winner = board.check_winner();
   if (winner != 'N') {
@@ -25,22 +25,33 @@ board_point  minimax(ttt_board board, const player agent, bool agents_turn=true)
   // vector to store the possible states along with the score for each
   std::vector<board_point> potential_states;
   
+  // The agent switches for each recursive call
+  player current_agent = agents_turn ? agent : switch_player(agent);
+  
   // for each possibility generate the new state
   for (int idx : empty_indices) {
       ttt_board new_board(board);
-      new_board.make_move(agent, idx);
+      
+      new_board.make_move(
+        current_agent,
+        idx
+      );
+      int score = minimax(new_board, agent, !agents_turn).second;
       
       potential_states.push_back(
-        minimax(new_board, agent, !agents_turn)
+        std::make_pair<ttt_board, int>(std::move(new_board), std::move(score))
       );
   }
   
   // Choose the best depending on whether it's agents turn or not
-  int max_score = potential_states[0].second;
+  // all of this * (agents_turn? 1 : -1) adjusts the score,
+  // if it isn't the agents turn we want to pick the lowest max_score
+  // that models the opponent of the agent making the optimal choice
+  int max_score = potential_states[0].second * (agents_turn ? 1 : -1);
   board_point best_pair = potential_states[0];
   int adjusted_score;
   for (int i = 1; i < potential_states.size(); i++) {
-    adjusted_score = potential_states[i].second * agents_turn;
+    adjusted_score = potential_states[i].second * (agents_turn ? 1 : -1);
     if (adjusted_score > max_score) {
       max_score = adjusted_score;
       best_pair = potential_states[i];

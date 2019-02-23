@@ -11,8 +11,9 @@ typedef std::array<char, 9> char_board_array;
 typedef std::pair<ttt_board, int> board_point;
 
 
-// Acutal minimax recursive function
-char_board_array minimiax(ttt_board, char);
+// Acutal minimax recursive function, given a board and an agent
+// returns the next best state
+char_board_array minimax(ttt_board, char);
 
 // Find and return the first index where there is difference
 // returns -1 for equal arrays

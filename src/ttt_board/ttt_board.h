@@ -21,6 +21,8 @@ public:
   
   // Copy constructor
   ttt_board(const ttt_board& old_board);
+  
+  // not really worth it since the state is not public but what the hell
   ttt_board(ttt_board&& old_board);
   
   // Construct from std::array<char, 9> where the chars are
@@ -70,12 +72,10 @@ public:
   // if no moves have been made there yet
   void print_board();
   
-  void print_input_error();
-  
   
 private:
   void set_state(board_array new_state);
-  
+  void print_input_error(int selection);  
 };
 
 #endif

@@ -15,6 +15,10 @@ ttt_board::ttt_board() :
 ttt_board::ttt_board(const ttt_board& old_board) {
   set_state(old_board.get_state());
 }
+
+ttt_board::ttt_board(ttt_board&& old_board) {
+  set_state(old_board.get_state());
+}
     
 ttt_board::ttt_board(const std::array<char, 9>& i_state) :
   state{board_array()} {
@@ -67,7 +71,7 @@ bool ttt_board::make_move(player p, int location){
       return true;
   }
   else {
-    print_input_error();
+    print_input_error(location);
     return false;
   }
 }
@@ -127,13 +131,6 @@ std::vector<unsigned int> ttt_board::empty_indices() {
   return e_idxs;
 }
 
-
-void ttt_board::print_input_error() {
-  std::cout << "That is not a valid selection, choose again" <<
-  " make a selection between 0 and 8 that hasn't yet been made."
-  << std::endl;
-}
-
 void ttt_board::print_row(int row_num) {
   auto itr = state.begin() + 3*row_num;
   int idx = 3*row_num;
@@ -168,3 +165,9 @@ void ttt_board::print_board() {
 void ttt_board::set_state(board_array new_state){
     state = new_state;
   }
+
+void ttt_board::print_input_error(int selection) {
+  std::cout << selection << " is not a valid selection, choose again" <<
+  " make a selection between 0 and 8 that hasn't yet been made."
+  << std::endl;
+}

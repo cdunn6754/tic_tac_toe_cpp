@@ -3,13 +3,18 @@
 #include "ttt_board.h"
 
 
-
 // PUBLIC
+
+std::string ttt_board::row_decoration = "|-----|-----|-----|";
+
 ttt_board::ttt_board() :
-  state{board_array()},
-  row_decoration{"|-----|-----|-----|"} {
+  state{board_array()} {
   state.fill(player::E);
 };
+
+ttt_board::ttt_board(const ttt_board& old_board) {
+  set_state(old_board.get_state());
+}
     
 ttt_board::ttt_board(const std::array<char, 9>& i_state) :
   state{board_array()} {
@@ -30,8 +35,25 @@ ttt_board::ttt_board(const std::array<char, 9>& i_state) :
     }
   }
 }
-board_array ttt_board::get_state(){
+
+ttt_board::ttt_board(board_array i_state) : state{i_state} {};
+
+ttt_board ttt_board::operator=(const ttt_board& b) {
+  state = std::move(b.get_state());
+}
+
+
+board_array ttt_board::get_state() const {
   return state;
+}
+
+std::array<char, 9> ttt_board::get_char_state() const {
+  std::array<char, 9> char_array;
+  
+  for (int idx = 0; idx < state.size(); idx++) {
+    char_array[idx] = player_to_char(state[idx]);
+  }
+  return char_array;
 }
   
 void ttt_board::reset_board(){
@@ -50,7 +72,7 @@ bool ttt_board::make_move(player p, int location){
   }
 }
 
-bool ttt_board::check_finished() {
+bool ttt_board::check_finished() const {
   for (auto itr = state.begin(); itr != state.end(); itr++){
     if (*itr == player::E) {
       return false;
@@ -59,7 +81,7 @@ bool ttt_board::check_finished() {
     return true;
 }
 
-char ttt_board::check_winner() {
+char ttt_board::check_winner() const {
   
   // Rows
   for (int i=0; i<3; i++){
@@ -95,15 +117,15 @@ char ttt_board::check_winner() {
   return check_finished() ? 'D' : 'N';
 }
 
- std::vector<unsigned int> ttt_board::empty_indices() {
-    std::vector<unsigned int> e_idxs;
-    for (std::size_t i = 0; i < state.size(); i++) {
-      if (state[i] == player::E) {
-        e_idxs.push_back(i);
-      }
+std::vector<unsigned int> ttt_board::empty_indices() {
+  std::vector<unsigned int> e_idxs;
+  for (std::size_t i = 0; i < state.size(); i++) {
+    if (state[i] == player::E) {
+      e_idxs.push_back(i);
     }
-    return e_idxs;
   }
+  return e_idxs;
+}
 
 
 void ttt_board::print_input_error() {

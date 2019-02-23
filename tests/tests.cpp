@@ -127,6 +127,8 @@ TEST (BoardUtils, empty_indices) {
   EXPECT_EQ (test_board.empty_indices(), expectation);
 }
 
+#include "test_minimax.cpp";
+
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

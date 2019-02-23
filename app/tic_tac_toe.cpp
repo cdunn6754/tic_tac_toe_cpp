@@ -2,27 +2,33 @@
 
 #include "ttt_board.h"
 #include "player.h"
+#include "ttt_minimax.h"
 
 int main() {
   
   ttt_board board;
   
   char winner = board.check_winner();
+  // The human plays X, ai plays O
   bool x_turn = true;
-  player current_player;
 
   while (winner=='N') {
     int move_loc;
-    current_player = x_turn ? player::X : player::O;
     
     std::cout << std::endl;
     board.print_board();
+    
     // X player move
-    do {
-      std::cout << player_print(current_player) <<" player move: ";
-      std::cin >> move_loc;
-      std::cout << std::endl;
-    } while (!board.make_move(current_player, move_loc));
+    if (x_turn) {
+      do {
+        std::cout << player_print(player::X) <<" player move: ";
+        std::cin >> move_loc;
+        std::cout << std::endl;
+      } while (!board.make_move(player::X, move_loc));
+    }
+    else {
+      board.make_move(player::O,ttt_minimax(board.get_state(), player::O));
+    }
 
     std::cout << std::endl;
     

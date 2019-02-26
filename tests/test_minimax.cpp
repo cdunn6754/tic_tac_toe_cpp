@@ -208,8 +208,6 @@ TEST (MinimaxTest, plan_for_win_2) {
 // The FullGameSeries is a test suite that ensures,
 // that the ai's make the right
 // moves from the beginning to the end of a particular game
-// O is the human player, whose moves are included in the tests,
-// X is the ai.
 
 // Let ai play against itself, should result in draw
 TEST (FullGameSeries, full_game) {
@@ -217,6 +215,31 @@ TEST (FullGameSeries, full_game) {
   player agent = player::X;
   while (test_board.check_winner() == 'N') {
     test_board.make_move(agent, ttt_minimax(test_board.get_state(), agent));
+    switch_player_inplace(agent);
+  }
+  
+  // They play eachother to a draw
+  EXPECT_EQ (test_board.check_winner(), 'D');
+}
+
+// Let ai play against itself, should result in draw
+// use the external interface
+TEST (FullGameSeries, full_game_external_interface) {
+  ttt_board test_board;
+  player agent = player::X;
+  while (test_board.check_winner() == 'N') {
+    // need to convert test_board.get_state() and convert to c array
+    char_board_array std_board = test_board.get_char_state();
+    char c_board_array[9];
+    std::copy(std_board.begin(), std_board.end(), std::begin(c_board_array));
+    
+    test_board.make_move(
+      agent,
+      ttt_minimax(
+        c_board_array,
+        player_to_char(agent)
+      )
+    );
     switch_player_inplace(agent);
   }
   

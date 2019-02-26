@@ -72,11 +72,15 @@ int board_diff(BoardType old_board, BoardType new_board) {
 }
 
 // To be called by external users
-char_board_array ttt_minimax(char_board_array state, const char agent){
+int ttt_minimax(char (&state)[9], const char agent){
+  // copy c_array into a std::array
+  char_board_array std_state;
+  std::copy(std::begin(state), std::end(state), std_state.begin());
   
-  ttt_board board{state};
+  ttt_board board{std_state};
   player agent_p = char_to_player(agent);
-  return minimax(board, agent_p).first.get_char_state();
+  char_board_array next_state = minimax(board, agent_p).first.get_char_state();
+  return board_diff<char_board_array>(std_state, next_state);
 }
 
 // To be called the the exe in this project, uses our datatypes

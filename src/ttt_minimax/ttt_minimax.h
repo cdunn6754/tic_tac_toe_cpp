@@ -1,5 +1,8 @@
+#include <algorithm>
+
 #include "player.h"
 #include "ttt_board.h"
+
 
 // Very similar to board_array from tt_board but
 // contains native chars rather than player types.
@@ -22,7 +25,8 @@ template <class BoardType>
 int board_diff(BoardType old_board, BoardType new_board);
 
 // Main wrapper function for external use
-char_board_array ttt_minimax(char_board_array state, const char agent);
+// Uses a C array interface so we can use Python ctypes
+int ttt_minimax(char (&state)[9], const char agent);
 
 // Wrapper function for use with this exe
 int ttt_minimax(board_array state, const player agent);
